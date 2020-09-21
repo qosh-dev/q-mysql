@@ -56,7 +56,7 @@ This library executes all command of DML and DRL
     '''
 RESULT 
 
-import { QMySql } from './QMysql';
+import { QMySql } from '@qosh-dev/q-mysql/QMysql'
 
 var connection = new QMySql("localhost",'app','pass','social');
 var posts = connection.SetTable<post>("posts");
