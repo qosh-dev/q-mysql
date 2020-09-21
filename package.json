@@ -1,9 +1,11 @@
 {
-  "name": "QMysql",
+  "name": "qmysql",
   "version": "1.0.0",
   "description": "",
+  "" : "js/index.js",
+  "types": "./",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsc -p ."
   },
   "author": "qosh",
   "license": "ISC",
