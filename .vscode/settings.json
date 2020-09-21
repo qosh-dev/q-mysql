@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "social",
+            "driver": "MySQL",
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "name": "for",
+            "password": "pass",
+            "port": 3360,
+            "previewLimit": 50,
+            "server": "localhost",
+            "username": "app"
+        }
+    ]
+}
