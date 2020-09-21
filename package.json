@@ -14,7 +14,7 @@
   "author": "qosh",
   "license": "MIT",
   "prepublish": "tsc",
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "homepage" : "https://github.com/qosh-dev/q-mysql#readme",
   "dependencies": {
     "@types/node": "^14.6.4",
