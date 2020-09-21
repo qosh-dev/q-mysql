@@ -1,0 +1,14 @@
+{
+  "name": "QMysql",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "qosh",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^14.6.4",
+    "mysql": "^2.18.1"
+  }
+}
