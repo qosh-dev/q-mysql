@@ -7,14 +7,14 @@ This library aimed for simplify working with bd on Mysql.
 For Example we will use table with signature like that
 
 
-'''
+
     CREATE TABLE posts (
         id INT PRIMARY KEY AUTO_INCREMENY,
         content TEXT,
         removed BOOL NOT NULL DEFAULT FALSE,
         created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
-'''
+
 
 And with same signature on typescript
     
@@ -65,7 +65,9 @@ This library executes all command of DML and DRL
 RESULT 
 
     import { QMySql } from '@qosh-dev/q-mysql/QMysql'
+
     var connection = new QMySql("localhost",'app','pass','social');
+
     var posts = connection.SetTable<post>("posts");
     
 ----------------------------------------------
@@ -93,7 +95,7 @@ We will start from DRL
 
     2. Add condition
     
-            Second = posts.Where('content = "Second"');
+          var Second = posts.Where('content = "Second"');
             
           Query will return type QFinish<T>
           Than we will will use QFinish's method toList()
@@ -118,7 +120,8 @@ We will start from DRL
         <code>var result = Second.toList()</code>
 
         // Mysql equal <code>SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0</code>
-        // OutPut 
+        
+        OutPut 
         
             [
                 { id: 2, content: 'Second', likes: 4, created: 'null', removed: 0 },
@@ -147,7 +150,7 @@ We will start from DRL
                         { id: 47, content: 'Second', likes: 4, created: 'null', removed: 0 },
                         { id: 49, content: 'Second', likes: 4, created: 'null', removed: 0 }
                     ]
-             >>> (method) <code>QFinish<post, "id" | "content" | "likes" | "created" | "removed">.OrderBy<"id">(prop: "id"): QLast<post, "id"></code>
+             <code>QFinish<post, "id" | "content" | "likes" | "created" | "removed">.OrderBy<"id">(prop: "id"): QLast<post, "id"></code>
       
         2. OrderByDESC
             Example :
@@ -155,15 +158,16 @@ We will start from DRL
                 var temp = await posts.Where('content = "Second"').OrderByDESC('id')
                 var result = temp.toList()
                 
-               Mysql equal  <code> SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0  ORDER BY 'id' DESC </code> 
-               OutPut //
-                    [
-                        { id: 139, content: 'Second', likes: 4, created: 'null', removed: 0 },
-                        { id: 138, content: 'Second', likes: 4, created: 'null', removed: 0 },
-                        { id: 137, content: 'Second', likes: 4, created: 'null', removed: 0 }
-                    ]
+             Mysql equal  <code> SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0  ORDER BY 'id' DESC </code> 
+             
+                 OutPut 
+                        [
+                            { id: 139, content: 'Second', likes: 4, created: 'null', removed: 0 },
+                            { id: 138, content: 'Second', likes: 4, created: 'null', removed: 0 },
+                            { id: 137, content: 'Second', likes: 4, created: 'null', removed: 0 }
+                        ]
                     
-            (method) <code> QFinish<post, "id" | "content" | "likes" | "created" | "removed">.OrderByDESC<"id">(prop: "id"): QLast<post, "id"></code>
+            <code> QFinish<post, "id" | "content" | "likes" | "created" | "removed">.OrderByDESC<"id">(prop: "id"): QLast<post, "id"></code>
 
 
 2. SELECT (n) PROP
@@ -171,15 +175,16 @@ We will start from DRL
     Method Select takes (n) count of props thanks to syntactic sugar ...(arg name)
     <code> Select(...props: "id"[]) or Select(...props: ("id" | "content" | "created")[])</code>
 
-    >>> Select(...props: ("id" | "content" | "likes" | "created" | "removed")[]): QTools<post, "id" | "content" | "likes" | "created" | "removed">
+    <code>Select(...props: ("id" | "content" | "likes" | "created" | "removed")[]): QTools<post, "id" | "content" | "likes" | "created" | "removed"></code>
+    
     Method SELECT returns instance QTools class
     1. SELECT one element 
         We want to take one prop of objects
         Query like that 'SELECT id FROM posts '
         We can use this realization :
 
-        var posts = posts.Select('id').toList() 
-         (method) <code> QType<post, "id" | "content" | "likes" | "created" | "removed">.Select<"id">(...props: "id"[]): QTools<post, "id"></code>
+            var posts = posts.Select('id').toList() 
+         <code> QType<post, "id" | "content" | "likes" | "created" | "removed">.Select<"id">(...props: "id"[]): QTools<post, "id"></code>
 
             Output //
                 [
@@ -194,15 +199,17 @@ We will start from DRL
         Query like that 'SELECT id, content FROM posts '
         We can use this realization :
 
-        var posts = posts.Select('id','content).toList()
-        >>> (method) QType<post, "id" | "content" | "likes" | "created" | "removed">.Select<"id" | "content">(...props: ("id" | "content")[]): QTools<post, "id" | "content">
-        // Output :
-            [
-                { id: 2, content: 'Second' },
-                { id: 3, content: 'Last Post!!!' },
-                { id: 6, content: 'added' },
-                { id: 7, content: 'added' }
-            ]
+        <code>var posts = posts.Select('id','content).toList()</code>
+        
+        <code>QType<post, "id" | "content" | "likes" | "created" | "removed">.Select<"id" | "content">(...props: ("id" | "content")[]): QTools<post, "id" | "content"></code>
+    
+        Output
+                [
+                    { id: 2, content: 'Second' },
+                    { id: 3, content: 'Last Post!!!' },
+                    { id: 6, content: 'added' },
+                    { id: 7, content: 'added' }
+                ]
 
 
 
