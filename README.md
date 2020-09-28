@@ -17,15 +17,20 @@ For Example we will use table with signature like that
 '''
 
 And with same signature on typescript
-<code>
+    
     interface post{
+    
         id?: number,
+        
         content?:string, 
+        
         likes?:number, 
+        
         created?: string | null,
+        
         removed?: 0 | 1 
+        
     }
-</code>
 
 This library executes all command of DML and DRL
 
@@ -35,11 +40,9 @@ This library executes all command of DML and DRL
 '''''''''
 
 1. First step :
-    ''' 
-        We will declare new connection to Mysql server :
-            <code>var connection = new QMySql("localhost",'app','pass','social');</code>
-            <code>class QMySql{params}(port,userName,userPass,dbName)</code>
-    '''
+    We will declare new connection to Mysql server :
+        <code>var connection = new QMySql("localhost",'app','pass','social');</code>
+        <code>class QMySql{params}(port,userName,userPass,dbName)</code>
     Wi will use this realization :
         <code>var connection = new QMySql("localhost",'app','pass','social');</code>
 
@@ -78,56 +81,56 @@ We will start from DRL
         <code>toList(): Promise<post[]></code>
 
     2. Add condition
-        var Second = posts.Where('content = "Second"');
+            <codeL>ond = posts.Where('content = "Second"');</code>
             //Query will return type QFinish<T>
         //than we will will use QFinish's method toList()
-        var result = Second.toList()
+        <code>sult = Second.toList()</code>
 
         // Mysql equal ' SELECT * FROM posts WHERE content = 'SECOND'
         // OutPut 
-            [
+           <code>[
                 { id: 2, content: 'Second', likes: 4, created: 'null', removed: 0 },
                 { id: 45, content: 'Second', likes: 4, created: 'null', removed: 0 },
                 { id: 47, content: 'Second', likes: 4, created: 'null', removed: 0 }
-            ]
+            ]</code>
 
         >>>>> Where(Condition: string): QFinish<post, "id" | "content" | "likes" | "created" | "removed">
 
     3. Add two condition
-        var Second = posts.Where('content = "Second" AND likes != 0 ');
+        <code>var Second = posts.Where('content = "Second" AND likes != 0 ');
         //than we will will use QFinish's method toList()
-        var result = Second.toList()
+        <code>var result = Second.toList()</code>
 
         // Mysql equal ' SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0 '
         // OutPut 
-            [
+            <code>[
                 { id: 2, content: 'Second', likes: 4, created: 'null', removed: 0 },
                 { id: 45, content: 'Second', likes: 4, created: 'null', removed: 0 },
                 { id: 48, content: 'Second', likes: 40, created: 'null', removed: 0 }
-            ]
+            ]</code>
  
     4. Class QFinish also have two interesting methods ;
-        >>> OFinish<T,P extends keyof T>().OrderBy(arg: P) => QLast()
+        <code>OFinish<T,P extends keyof T>().OrderBy(arg: P) => QLast()</code>
         Which takes one require argument (arg : P) ''' key of '''
         
         1. OrderBy
             Example :
-                var temp = await posts.Where('content = "Second"').OrderBy('id')
-                var result = temp.toList()
+                <code>var temp = await posts.Where('content = "Second"').OrderBy('id')</code>
+                <code>var result = temp.toList()</code>
                 // Mysql equal  ' SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0  ORDER BY 'id' ASC ' 
                 // OutPut 
-                    [
+                    <code>[
                         { id: 2, content: 'Second', likes: 4, created: 'null', removed: 0 },
                         { id: 45, content: 'Second', likes: 4, created: 'null', removed: 0 },
                         { id: 47, content: 'Second', likes: 4, created: 'null', removed: 0 },
                         { id: 49, content: 'Second', likes: 4, created: 'null', removed: 0 }
-                    ]
-             >>> (method) QFinish<post, "id" | "content" | "likes" | "created" | "removed">.OrderBy<"id">(prop: "id"): QLast<post, "id">
+                    ]</code>
+             >>> (method) <code>QFinish<post, "id" | "content" | "likes" | "created" | "removed">.OrderBy<"id">(prop: "id"): QLast<post, "id"></code>
       
         2. OrderByDESC
             Example :
-                var temp = await posts.Where('content = "Second"').OrderByDESC('id')
-                var result = temp.toList()
+                <code>var temp = await posts.Where('content = "Second"').OrderByDESC('id')
+                <code>var result = temp.toList()</code>
                 // Mysql equal  ' SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0  ORDER BY 'id' DESC ' 
                 // OutPut 
                     [
