@@ -19,17 +19,11 @@ For Example we will use table with signature like that
 And with same signature on typescript
     
     interface post{
-    
         id?: number,
-        
         content?:string, 
-        
         likes?:number, 
-        
         created?: string | null,
-        
         removed?: 0 | 1 
-        
     }
 
 This library executes all command of DML and DRL
@@ -65,9 +59,7 @@ This library executes all command of DML and DRL
 RESULT 
 
     import { QMySql } from '@qosh-dev/q-mysql/QMysql'
-
     var connection = new QMySql("localhost",'app','pass','social');
-
     var posts = connection.SetTable<post>("posts");
     
 ----------------------------------------------
@@ -95,7 +87,7 @@ We will start from DRL
 
     2. Add condition
     
-          var Second = posts.Where('content = "Second"');
+          <code>var Second = posts.Where('content = "Second"');</code>
             
           Query will return type QFinish<T>
           Than we will will use QFinish's method toList()
