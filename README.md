@@ -259,7 +259,7 @@ We will start from DRL
 
 4. Class QLast 
     
-        1. toLast() /// return Array<T>
+        1. toList() /// return Array<T>
         2. First() /// return match el of Array<T>
         3. Paginate() {
             Takes two not required args :
