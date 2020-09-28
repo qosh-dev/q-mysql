@@ -152,6 +152,7 @@ We will start from DRL
              Mysql equal  <code> SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0  ORDER BY 'id' DESC </code> 
              
              OutPut 
+             
                         [
                             { id: 139, content: 'Second', likes: 4, created: 'null', removed: 0 },
                             { id: 138, content: 'Second', likes: 4, created: 'null', removed: 0 },
@@ -294,9 +295,12 @@ Now we try DML
         ]
 
      Adding one element :
-            <code>await posts.Add(newPost[1])</code>
+            
+            await posts.Add(newPost[1])
+            
      Adding one element :
-            <code>await posts.Add(newPost)</code>
+     
+            await posts.Add(newPost)
 
 2. Change 
     To change record in the database there is Method Update()
