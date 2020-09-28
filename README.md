@@ -24,7 +24,7 @@ And with same signature on typescript
         likes?:number, 
         created?: string | null,
         removed?: 0 | 1 
-    }
+    };
 
 This library executes all command of DML and DRL
 
@@ -36,8 +36,8 @@ This library executes all command of DML and DRL
 1. First step :
     We will declare new connection to Mysql server :
     
-        var connection = new QMySql("localhost",'app','pass','social')
-        class QMySql{params}(port,userName,userPass,dbName)
+        var connection = new QMySql("localhost",'app','pass','social');
+        class QMySql{params}(port,userName,userPass,dbName);
         
     Wi will use this realization :
     
@@ -119,7 +119,7 @@ We will start from DRL
  
     4. Class QFinish also have two interesting methods ;
         
-            Finish<T,P extends keyof T>().OrderBy(arg: P) => QLast()</code>
+          <code>Finish<T,P extends keyof T>().OrderBy(arg: P) => QLast()</code>
         
         Which takes one require argument (arg : P) ''' key of '''
         
@@ -131,7 +131,8 @@ We will start from DRL
                 
              Mysql equal  <code>SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0  ORDER BY 'id' ASC</code> 
                 
-                OutPut //
+             OutPut
+                
                     [
                         { id: 2, content: 'Second', likes: 4, created: 'null', removed: 0 },
                         { id: 45, content: 'Second', likes: 4, created: 'null', removed: 0 },
@@ -175,7 +176,8 @@ We will start from DRL
          <code>var posts = posts.Select('id').toList()</code>
          <code> QType<post, "id" | "content" | "likes" | "created" | "removed">.Select<"id">(...props: "id"[]): QTools<post, "id"></code>
 
-            Output //
+          Output
+          
                 [
                     { id: 2 },   
                     { id: 3 },   
@@ -193,6 +195,7 @@ We will start from DRL
         <code>QType<post, "id" | "content" | "likes" | "created" | "removed">.Select<"id" | "content">(...props: ("id" | "content")[]): QTools<post, "id" | "content"></code>
     
         Output
+        
                     [
                         { id: 2, content: 'Second' },
                         { id: 3, content: 'Last Post!!!' },
@@ -202,8 +205,8 @@ We will start from DRL
 
     3. Class QTools<T> allows s to use methods such as AVG(), SUM(), MIN(), MAX(), DISTINCT()
         ///////Which not takes any arg
-          Distinct() : QResult<T,P>;
           
+              Distinct() : QResult<T,P>;
               SUM() : QResult<T,P>;
               MIN() : QResult<T,P>;
               AVG() : QResult<T,P>;
@@ -218,17 +221,17 @@ We will start from DRL
           It is recommended to call the method First() to take result
           Example :
             
-                ret result = posts.First()
+                return posts.First()
                 Output : 479
             
           In contrast toList()
           
-                ret result = posts.toList()
+                return posts.toList()
                 Output : [ { 'SUM(likes)': 479 } ]
 
     4. Adding Condition (WHERE)
         We need query 
-            <code>' SELECT content FROM posts WHERE content = 'added'</code>
+        <code>' SELECT content FROM posts WHERE content = 'added'</code>
         We use this realization :
         
         <code>var temp = posts.Select('likes').Where('content = "added"')</code>
