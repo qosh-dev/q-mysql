@@ -17,7 +17,7 @@ For Example we will use table with signature like that
 '''
 
 And with same signature on typescript
-'''
+<code>
     interface post{
         id?: number,
         content?:string, 
@@ -25,7 +25,7 @@ And with same signature on typescript
         created?: string | null,
         removed?: 0 | 1 
     }
-'''
+</code>
 
 This library executes all command of DML and DRL
 
@@ -37,11 +37,11 @@ This library executes all command of DML and DRL
 1. First step :
     ''' 
         We will declare new connection to Mysql server :
-            var connection = new QMySql("localhost",'app','pass','social');
-            class QMySql{params}(port,userName,userPass,dbName)
+            <code>var connection = new QMySql("localhost",'app','pass','social');</code>
+            <code>class QMySql{params}(port,userName,userPass,dbName)</code>
     '''
     Wi will use this realization :
-        var connection = new QMySql("localhost",'app','pass','social');
+        <code>var connection = new QMySql("localhost",'app','pass','social');</code>
 
 2. Second step :
     '''
@@ -52,14 +52,13 @@ This library executes all command of DML and DRL
         SetTable is generic method which take one type to set signature for our table
         And also take one require argument(string) name of table with whome we work
     Wi will use this realization :
-        var posts = connection.SetTable<post>("posts");
+        <code>var posts = connection.SetTable<post>("posts");</code>
     '''
 RESULT 
 
-import { QMySql } from '@qosh-dev/q-mysql/QMysql'
-
-var connection = new QMySql("localhost",'app','pass','social');
-var posts = connection.SetTable<post>("posts");
+<code>import { QMySql } from '@qosh-dev/q-mysql/QMysql'</code>
+<code>var connection = new QMySql("localhost",'app','pass','social');</code>
+<code>var posts = connection.SetTable<post>("posts");</code>
 ----------------------------------------------
 We will start from DRL 
 
@@ -71,12 +70,12 @@ We will start from DRL
 
         // Mysql query ' SELECT * FROM posts
         // OutPut
-            [
-                { id: 6, content: 'added', likes: 4, created: 'null', removed: 0 },
-                { id: 7, content: 'added', likes: 4, created: 'null', removed: 0 },
-                { id: 8, content: 'added', likes: 4, created: 'null', removed: 0 }
-            ]
-        >>>>> toList(): Promise<post[]>
+            <code>[</code>
+                <code>{ id: 6, content: 'added', likes: 4, created: 'null', removed: 0 },</code>
+                <code>{ id: 7, content: 'added', likes: 4, created: 'null', removed: 0 },</code>
+                <code>{ id: 8, content: 'added', likes: 4, created: 'null', removed: 0 }</code>
+            <code>]</code>
+        <code>toList(): Promise<post[]></code>
 
     2. Add condition
         var Second = posts.Where('content = "Second"');
@@ -137,7 +136,6 @@ We will start from DRL
                         { id: 137, content: 'Second', likes: 4, created: 'null', removed: 0 }
                     ]
             >>> (method) QFinish<post, "id" | "content" | "likes" | "created" | "removed">.OrderByDESC<"id">(prop: "id"): QLast<post, "id">
-
 
 
 2. SELECT (n) PROP
