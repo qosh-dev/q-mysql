@@ -44,21 +44,17 @@ This library executes all command of DML and DRL
         var connection = new QMySql("localhost",'app','pass','social');
 
 2. Second step :
-    '''
         We will declare instance of table.
         We use SetTable<T>(tableName) which is method of QMySql class.
-    '''
-    '''
         SetTable is generic method which take one type to set signature for our table
         And also take one require argument(string) name of table with whome we work
     Wi will use this realization :
     
        var posts = connection.SetTable<post>("posts");
        
-    '''
 RESULT 
 
-    import { QMySql } from '@qosh-dev/q-mysql/QMysql'
+    import { QMySql } from '@qosh-dev/q-mysql/QMysql';
     var connection = new QMySql("localhost",'app','pass','social');
     var posts = connection.SetTable<post>("posts");
     
