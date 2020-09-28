@@ -41,10 +41,13 @@ This library executes all command of DML and DRL
 
 1. First step :
     We will declare new connection to Mysql server :
-        <code>var connection = new QMySql("localhost",'app','pass','social');</code>
-        <code>class QMySql{params}(port,userName,userPass,dbName)</code>
+    
+        var connection = new QMySql("localhost",'app','pass','social')
+        class QMySql{params}(port,userName,userPass,dbName)
+        
     Wi will use this realization :
-        <code>var connection = new QMySql("localhost",'app','pass','social');</code>
+    
+        var connection = new QMySql("localhost",'app','pass','social');
 
 2. Second step :
     '''
@@ -55,96 +58,118 @@ This library executes all command of DML and DRL
         SetTable is generic method which take one type to set signature for our table
         And also take one require argument(string) name of table with whome we work
     Wi will use this realization :
-        <code>var posts = connection.SetTable<post>("posts");</code>
+    
+       var posts = connection.SetTable<post>("posts");
+       
     '''
 RESULT 
 
-<code>import { QMySql } from '@qosh-dev/q-mysql/QMysql'</code>
-<code>var connection = new QMySql("localhost",'app','pass','social');</code>
-<code>var posts = connection.SetTable<post>("posts");</code>
+    import { QMySql } from '@qosh-dev/q-mysql/QMysql'
+    var connection = new QMySql("localhost",'app','pass','social');
+    var posts = connection.SetTable<post>("posts");
+    
 ----------------------------------------------
 We will start from DRL 
 
 1. ALL PROPS
+
     Queries which chose all props of object of db//////
-
     1. If we want select all data from table we can use query like that :
-        var all = posts.toList()
+    
+            var all = posts.toList()
 
-        // Mysql query ' SELECT * FROM posts
-        // OutPut
-            <code>[</code>
-                <code>{ id: 6, content: 'added', likes: 4, created: 'null', removed: 0 },</code>
-                <code>{ id: 7, content: 'added', likes: 4, created: 'null', removed: 0 },</code>
-                <code>{ id: 8, content: 'added', likes: 4, created: 'null', removed: 0 }</code>
-            <code>]</code>
-        <code>toList(): Promise<post[]></code>
+            Mysql query ' SELECT * FROM posts
+            
+         OutPut
+        
+            [
+                { id: 6, content: 'added', likes: 4, created: 'null', removed: 0 },
+                { id: 7, content: 'added', likes: 4, created: 'null', removed: 0 },
+                { id: 8, content: 'added', likes: 4, created: 'null', removed: 0 }
+            ]
+            
+            toList(): Promise<post[]>
+        
 
     2. Add condition
-            <codeL>ond = posts.Where('content = "Second"');</code>
-            //Query will return type QFinish<T>
-        //than we will will use QFinish's method toList()
-        <code>sult = Second.toList()</code>
-
-        // Mysql equal ' SELECT * FROM posts WHERE content = 'SECOND'
-        // OutPut 
-           <code>[
+    
+            Second = posts.Where('content = "Second"');
+            
+          Query will return type QFinish<T>
+          Than we will will use QFinish's method toList()
+        
+           var result = Second.toList()
+            
+           Mysql equal ' SELECT * FROM posts WHERE content = 'SECOND'
+             
+         OutPut 
+         
+           [
                 { id: 2, content: 'Second', likes: 4, created: 'null', removed: 0 },
                 { id: 45, content: 'Second', likes: 4, created: 'null', removed: 0 },
                 { id: 47, content: 'Second', likes: 4, created: 'null', removed: 0 }
-            ]</code>
+           ]
 
-        >>>>> Where(Condition: string): QFinish<post, "id" | "content" | "likes" | "created" | "removed">
+        <code>Where(Condition: string): QFinish<post, "id" | "content" | "likes" | "created" | "removed"></code>
 
     3. Add two condition
-        <code>var Second = posts.Where('content = "Second" AND likes != 0 ');
+        <code>var Second = posts.Where('content = "Second" AND likes != 0 ');</code>
         //than we will will use QFinish's method toList()
         <code>var result = Second.toList()</code>
 
-        // Mysql equal ' SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0 '
+        // Mysql equal <code>SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0</code>
         // OutPut 
-            <code>[
+        
+            [
                 { id: 2, content: 'Second', likes: 4, created: 'null', removed: 0 },
                 { id: 45, content: 'Second', likes: 4, created: 'null', removed: 0 },
                 { id: 48, content: 'Second', likes: 40, created: 'null', removed: 0 }
-            ]</code>
+            ]
  
     4. Class QFinish also have two interesting methods ;
-        <code>OFinish<T,P extends keyof T>().OrderBy(arg: P) => QLast()</code>
+        
+            Finish<T,P extends keyof T>().OrderBy(arg: P) => QLast()</code>
+        
         Which takes one require argument (arg : P) ''' key of '''
         
         1. OrderBy
             Example :
-                <code>var temp = await posts.Where('content = "Second"').OrderBy('id')</code>
-                <code>var result = temp.toList()</code>
-                // Mysql equal  ' SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0  ORDER BY 'id' ASC ' 
-                // OutPut 
-                    <code>[
+            
+                var temp = await posts.Where('content = "Second"').OrderBy('id')
+                var result = temp.toList()
+                
+             Mysql equal  <code>SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0  ORDER BY 'id' ASC</code> 
+                
+                OutPut //
+                    [
                         { id: 2, content: 'Second', likes: 4, created: 'null', removed: 0 },
                         { id: 45, content: 'Second', likes: 4, created: 'null', removed: 0 },
                         { id: 47, content: 'Second', likes: 4, created: 'null', removed: 0 },
                         { id: 49, content: 'Second', likes: 4, created: 'null', removed: 0 }
-                    ]</code>
+                    ]
              >>> (method) <code>QFinish<post, "id" | "content" | "likes" | "created" | "removed">.OrderBy<"id">(prop: "id"): QLast<post, "id"></code>
       
         2. OrderByDESC
             Example :
-                <code>var temp = await posts.Where('content = "Second"').OrderByDESC('id')
-                <code>var result = temp.toList()</code>
-                // Mysql equal  ' SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0  ORDER BY 'id' DESC ' 
-                // OutPut 
+            
+                var temp = await posts.Where('content = "Second"').OrderByDESC('id')
+                var result = temp.toList()
+                
+               Mysql equal  <code> SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0  ORDER BY 'id' DESC </code> 
+               OutPut //
                     [
                         { id: 139, content: 'Second', likes: 4, created: 'null', removed: 0 },
                         { id: 138, content: 'Second', likes: 4, created: 'null', removed: 0 },
                         { id: 137, content: 'Second', likes: 4, created: 'null', removed: 0 }
                     ]
-            >>> (method) QFinish<post, "id" | "content" | "likes" | "created" | "removed">.OrderByDESC<"id">(prop: "id"): QLast<post, "id">
+                    
+            (method) <code> QFinish<post, "id" | "content" | "likes" | "created" | "removed">.OrderByDESC<"id">(prop: "id"): QLast<post, "id"></code>
 
 
 2. SELECT (n) PROP
     Queries which output (n) count of prop
     Method Select takes (n) count of props thanks to syntactic sugar ...(arg name)
-    >>> Select(...props: "id"[]) or Select(...props: ("id" | "content" | "created")[])
+    <code> Select(...props: "id"[]) or Select(...props: ("id" | "content" | "created")[])</code>
 
     >>> Select(...props: ("id" | "content" | "likes" | "created" | "removed")[]): QTools<post, "id" | "content" | "likes" | "created" | "removed">
     Method SELECT returns instance QTools class
@@ -154,15 +179,15 @@ We will start from DRL
         We can use this realization :
 
         var posts = posts.Select('id').toList() 
-        >>> (method) QType<post, "id" | "content" | "likes" | "created" | "removed">.Select<"id">(...props: "id"[]): QTools<post, "id">
+         (method) <code> QType<post, "id" | "content" | "likes" | "created" | "removed">.Select<"id">(...props: "id"[]): QTools<post, "id"></code>
 
-        // Output :
-            [
-                { id: 2 },   
-                { id: 3 },   
-                { id: 6 },   
-                { id: 7 }
-            ]
+            Output //
+                [
+                    { id: 2 },   
+                    { id: 3 },   
+                    { id: 6 },   
+                    { id: 7 }
+                ]
 
     2. SELECT two or more props
         We want to take one prop of objects
