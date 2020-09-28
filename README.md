@@ -104,7 +104,9 @@ We will start from DRL
 
     3. Add two condition
         <code>var Second = posts.Where('content = "Second" AND likes != 0 ');</code>
+        
         //than we will will use QFinish's method toList()
+        
         <code>var result = Second.toList()</code>
 
         // Mysql equal <code>SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0</code>
@@ -174,6 +176,7 @@ We will start from DRL
         We can use this realization :
 
          <code>var posts = posts.Select('id').toList()</code>
+         
          <code> QType<post, "id" | "content" | "likes" | "created" | "removed">.Select<"id">(...props: "id"[]): QTools<post, "id"></code>
 
           Output
@@ -231,11 +234,15 @@ We will start from DRL
 
     4. Adding Condition (WHERE)
         We need query 
+        
         <code>' SELECT content FROM posts WHERE content = 'added'</code>
+        
         We use this realization :
         
         <code>var temp = posts.Select('likes').Where('content = "added"')</code>
+        
         <code>var result = await temp.toList()</code>
+        
         Output 
         
             [
