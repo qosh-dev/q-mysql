@@ -149,7 +149,7 @@ We will start from DRL
                 
              Mysql equal  <code> SELECT * FROM posts WHERE content = 'SECOND' AND likes != 0  ORDER BY 'id' DESC </code> 
              
-                 OutPut 
+             OutPut 
                         [
                             { id: 139, content: 'Second', likes: 4, created: 'null', removed: 0 },
                             { id: 138, content: 'Second', likes: 4, created: 'null', removed: 0 },
