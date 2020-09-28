@@ -173,6 +173,7 @@ We will start from DRL
 2. SELECT (n) PROP
     Queries which output (n) count of prop
     Method Select takes (n) count of props thanks to syntactic sugar ...(arg name)
+    
     <code> Select(...props: "id"[]) or Select(...props: ("id" | "content" | "created")[])</code>
 
     <code>Select(...props: ("id" | "content" | "likes" | "created" | "removed")[]): QTools<post, "id" | "content" | "likes" | "created" | "removed"></code>
@@ -183,7 +184,7 @@ We will start from DRL
         Query like that 'SELECT id FROM posts '
         We can use this realization :
 
-            var posts = posts.Select('id').toList() 
+         <code>var posts = posts.Select('id').toList()</code>
          <code> QType<post, "id" | "content" | "likes" | "created" | "removed">.Select<"id">(...props: "id"[]): QTools<post, "id"></code>
 
             Output //
@@ -204,109 +205,82 @@ We will start from DRL
         <code>QType<post, "id" | "content" | "likes" | "created" | "removed">.Select<"id" | "content">(...props: ("id" | "content")[]): QTools<post, "id" | "content"></code>
     
         Output
-                [
-                    { id: 2, content: 'Second' },
-                    { id: 3, content: 'Last Post!!!' },
-                    { id: 6, content: 'added' },
-                    { id: 7, content: 'added' }
-                ]
-
-
-
-
+                    [
+                        { id: 2, content: 'Second' },
+                        { id: 3, content: 'Last Post!!!' },
+                        { id: 6, content: 'added' },
+                        { id: 7, content: 'added' }
+                    ]
 
     3. Class QTools<T> allows s to use methods such as AVG(), SUM(), MIN(), MAX(), DISTINCT()
         ///////Which not takes any arg
-          >>>  Distinct() : QResult<T,P>;
-          >>>  SUM() : QResult<T,P>;
-          >>>  MIN() : QResult<T,P>;
-          >>>  AVG() : QResult<T,P>;
-          >>>  COunt() : QResult<T,P>;
+          Distinct() : QResult<T,P>;
+          
+              SUM() : QResult<T,P>;
+              MIN() : QResult<T,P>;
+              AVG() : QResult<T,P>;
+              Count() : QResult<T,P>;
+        
         Example :
-            var temp = posts.Select('likes').SUM()
-            MYSQL '  SELECT SUM(likes) FROM posts   '
-            It is recommended to call the method First() to take result
-            Example :
+           
+          <code>var temp = posts.Select('likes').SUM()</code>
+            
+          <code>MYSQL equal '  SELECT SUM(likes) FROM posts   '</code>
+            
+          It is recommended to call the method First() to take result
+          Example :
+            
                 ret result = posts.First()
-                // Output : 479
-            In contrast toList()
+                Output : 479
+            
+          In contrast toList()
+          
                 ret result = posts.toList()
-                // Output : [ { 'SUM(likes)': 479 } ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                Output : [ { 'SUM(likes)': 479 } ]
 
     4. Adding Condition (WHERE)
         We need query 
-            ' SELECT content FROM posts WHERE content = 'added'
+            <code>' SELECT content FROM posts WHERE content = 'added'</code>
         We use this realization :
         
-        var temp = posts.Select('likes').Where('content = "added"')
-        var result = await temp.toList()
-        // Output 
+        <code>var temp = posts.Select('likes').Where('content = "added"')</code>
+        <code>var result = await temp.toList()</code>
+        Output 
+        
             [
                 { likes: 4 }, { likes: 4 }, { likes: 4 },
                 { likes: 4 }, { likes: 4 }, { likes: 4 },
             ]
 
-
-
-
-
-
-
 3. Additional methods fo quick queries
-    1. Find(number id) //// return <T> by his id
-    2. Equal(key : P,value : T[P]) /// return T[] by his props( = )
-    2. NotEqual(key : P,value : T[P]) /// return T[] by his props( != )
+    
+        1. Find(number id) //// return <T> by his id
+        2. Equal(key : P,value : T[P]) /// return T[] by his props( = )
+        3. NotEqual(key : P,value : T[P]) /// return T[] by his props( != )
 
 4. Class QLast 
-    1. toLast() /// return Array<T>
-    2. First() /// return match el of Array<T>
-    3. Paginate() {
-        Takes two not required args :
-            count? : number = 7,
-                Count of <T> to return
-            page? : number = 1,
-                List page to return
-    }
-
-
-
-
+    
+        1. toLast() /// return Array<T>
+        2. First() /// return match el of Array<T>
+        3. Paginate() {
+            Takes two not required args :
+                count? : number = 7,
+                    Count of <T> to return
+                page? : number = 1,
+                    List page to return
+        }
 
 Now we try DML
 
 1. Add 
     To add new data to table there is method Add()
     Which have to Overloads
-    >>> Add(objArr: T): Promise<void>
-    >>> Add(objArr: T[]): Promise<void>
+    
+        Add(objArr: T): Promise<void>
+        Add(objArr: T[]): Promise<void>
 
     Example :
+    
         var newPost : post[] = [
             {
                 content : "First",
@@ -321,19 +295,21 @@ Now we try DML
             }
         ]
 
-        Adding one element :
-            await posts.Add(newPost[1])
-        Adding one element :
-            await posts.Add(newPost)
+     Adding one element :
+            <code>await posts.Add(newPost[1])</code>
+     Adding one element :
+            <code>await posts.Add(newPost)</code>
 
 2. Change 
     To change record in the database there is Method Update()
     Which also have to Overloads
-    >>> Update(obj: post): Promise<QChange>
-    >>> Update(obj: post, id: number): Promise<void>
+    
+        Update(obj: post): Promise<QChange>
+        Update(obj: post, id: number): Promise<void>
 
     First arg of method take T object 
     Example :
+    
         await posts.Update(
             {
                 content : "Second",
@@ -341,17 +317,21 @@ Now we try DML
                 likes : 4,
             }
         )
-        Then you have to add Condition
+        
+    Then you have to add Condition
             /// WHERE()
-            await posts.Update(
+        
+        await posts.Update(
             {
                 content : "Second",
                 removed : 0,
                 likes : 4,
             }
         ).Where('id = 4)
+    
     At second version you can write secon arg (id : number) for simplify your work, if you want to change record by specific id 
         Example :
+            
             await posts.Update(
                 {
                     content : "Second",
@@ -363,25 +343,11 @@ Now we try DML
 
 3. Delete 
     To delete record there is one method DELETE() with two overloads
-    async Delete(id: Number): Promise<void>;
-    async Delete(): Promise<QChange>;
+    
+        async Delete(id: Number): Promise<void>;
+        async Delete(): Promise<QChange>;
 
     In first realization method takes one arg (id : number)
     Which means that you want to delete record with this id
     Second need the condition 
     //// Where()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
