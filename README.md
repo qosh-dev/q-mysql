@@ -298,7 +298,7 @@ Now we try DML
             
             await posts.Add(newPost[1])
             
-     Adding one element :
+     Adding Array of element :
      
             await posts.Add(newPost)
 
@@ -329,9 +329,9 @@ Now we try DML
                 removed : 0,
                 likes : 4,
             }
-        ).Where('id = 4)
+        ).Where('id = 4')
     
-    At second version you can write secon arg (id : number) for simplify your work, if you want to change record by specific id 
+    At second version you can write second arg (id : number) for simplify your work, if you want to change record by specific id 
         Example :
             
             await posts.Update(
