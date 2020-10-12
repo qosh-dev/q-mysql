@@ -1,5 +1,5 @@
 Hi and thank you for reading this tutorial.
-
+Hope you will use this package.
 
 This library aimed for simplify working with bd on Mysql.
 
